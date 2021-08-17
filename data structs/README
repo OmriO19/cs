@@ -1,0 +1,58 @@
+omri.ovadia
+
+
+
+
+=============================
+=      File description     =
+=============================
+SimpleHashSet.java A superclass for implementations of hash-sets implementing the SimpleSet interface.
+ClosedHashSet.java Hash-set that extends SimpleHashSet
+OpenHashSet.java Hash-set that extends SimpleHashSet
+ListLinked.java A LinkedList that extends the CollectionFacadeSet
+Tuple.java A tuple of string and a boolean
+CollectionFacadeSet.java Wraps an underlying Collection and serves to both simplify its API and give it a
+common type with the implemented SimpleHashSets
+SimpleSetPerformanceAnalyzer.java A class that run tests of "add" and "contains" in different kind of sets
+=============================
+=          Design           =
+=============================
+All the data structure I dealing with in this program implement the SimpleSet interface. which allow us to use
+encapsulation.
+
+=============================
+=  Implementation details   =
+=============================
+I implemented the OpenHashSet’s table as an array of ListLinked object, that correspond to the
+CollectionFacadeSet that holds a LinkedList object. In that way I can use the methods of the Facade and to
+iterate over the strings using the LinkedList iterator.
+For the deletion mechanism in ClosedHashSet, because the java array must contain objects from the same type
+and it don't allow to extend the String class, I implemented a class of Tuple, the tuple holds the actual
+string and his status in the hash table. if it deleted from the table it change the status to false.
+that way when looking for object in the table, you can distinguish between objects with the same hash code
+that one of them may have been delete.
+I implemented the method isContains in the ClosedHashSet that return the index of the string in the table or
+-1 if it doesn't there. this way I avoid writing the same code for the contains and delete methods. but in the
+add method I must check first if the table holds the string, if not to resize the table if needed and then
+allocate the right index for the string. if not applying this order of actions the algorithm may resize
+the table without needed (the table can already contain the string) or to allocate a wrong index for the
+string (allocate an index, then resizing).
+
+=============================
+=  Analysis results   =
+=============================
+The file data1 contain a great amount of words with the same hash.
+When adding the words to the OpenHashSet they all go to the same linked list, and before actually adding each
+string it checks if the linked list already contain the string and that takes O(n), when n (the number of
+strings we already add) keeps getting bigger as we add the strings.
+When adding the words to the CloseHashSet after the first adding it start to use probing, to find an empty
+cell for the string, for each string we add. and before the add it run the contains. both the probing and the
+contains takes O(n) each every time. this can explain why it took ClosedHashSet almost two times more time to
+complete the adding.
+HashSet got pretty good results for all the tests, I would use him for every purpose, the same for TreeSet.
+LinkedList got not really good results for all the tests, I would avoid using it for every purpose.
+When dealing with the file data2, ClosedHashSet and OpenHashSet preform quite good. so when I will work with
+objects that will be distributed more or less uniformly in the hash table, I will have no problem using those
+data structures.
+OpenHashSet have better results than CloseHashSet in the majority the tests, and both of them have worse
+results than Java’s built in HashSet.
