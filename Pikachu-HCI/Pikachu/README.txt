@@ -1,0 +1,1 @@
+Depending on what firewall you have, it is likely that your computer might think the sketch is a virus since it plays music without your permission (i.e. as soon as the sketch starts). Hope this clears up any potential confusion.
