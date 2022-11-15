@@ -1,1 +1,0 @@
-"Dance of the Pixies" by Jens Kiilstofte is royalty-free and does not violate any copyright laws, therefore distributing it is not considered illegal, and is actually encouraged by the creator and their publisher.
